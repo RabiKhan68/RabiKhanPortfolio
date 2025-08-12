@@ -518,7 +518,7 @@ hr {
     margin: 20px;
     text-align: center;
     justify-content: center;
-    animation: moveUp 2s ease-in-out infinite alternate
+    animation: moveUp 2s ease-in-out infinite alternate;
 }
 
 #paragraph p {

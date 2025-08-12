@@ -20,10 +20,11 @@ document.addEventListener("DOMContentLoaded", function () {
         progressBars.forEach((bar) => {
             if (bar.classList.contains("html-progress")) bar.style.width = "92%";
             if (bar.classList.contains("css-progress")) bar.style.width = "85%";
-            if (bar.classList.contains("js-progress")) bar.style.width = "51%";
+            if (bar.classList.contains("js-progress")) bar.style.width = "62%";
             if (bar.classList.contains("python-progress")) bar.style.width = "72%";
             if (bar.classList.contains("c-progress")) bar.style.width = "79%";
             if (bar.classList.contains("java-progress")) bar.style.width = "81%";
+            if (bar.classList.contains("react-progress")) bar.style.width = "65%";
         });
     }
 

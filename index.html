@@ -314,6 +314,32 @@
         </section>
     </main>
     <hr>
+    <!-- Testimonials -->
+    <section class="testimonials glass" id="testimonials">
+        <h2>Testimonials</h2>
+        <div class="reviews" id="reviews">
+            <p>No reviews yet. Be the first to leave one!</p>
+        </div>
+
+        <!-- Add Review -->
+        <div class="add-comment">
+            <h3>Share your experience</h3>
+            <form id="commentForm">
+                <div class="star-rating">
+                    <input type="radio" name="rating" value="5" id="star5"><label for="star5">★</label>
+                    <input type="radio" name="rating" value="4" id="star4"><label for="star4">★</label>
+                    <input type="radio" name="rating" value="3" id="star3"><label for="star3">★</label>
+                    <input type="radio" name="rating" value="2" id="star2"><label for="star2">★</label>
+                    <input type="radio" name="rating" value="1" id="star1"><label for="star1">★</label>
+                </div>
+
+                <textarea id="commentText" placeholder="Write your review..." required></textarea>
+                <input type="text" id="commentName" placeholder="Your Name" required>
+                <button type="submit" class="btn">Submit Review</button>
+            </form>
+        </div>
+    </section>
+    <hr>
     <footer>
         <div id="paragraph">
             <h2>Contact Me</h2>
@@ -343,6 +369,109 @@
             <a href="#o"><i class='bx bx-caret-up-circle bx-flip-horizontal bx-tada'></i></a>
         </div>
     </footer>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import {
+            getFirestore,
+            collection,
+            addDoc,
+            getDocs,
+            serverTimestamp,
+            query,
+            orderBy
+        } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBft_nU98sWM7LuozMxg6G1Jv44zBZr_zs",
+            authDomain: "rabiproject.firebaseapp.com",
+            projectId: "rabiproject",
+            storageBucket: "rabiproject.firebasestorage.app",
+            messagingSenderId: "844814181015",
+            appId: "1:844814181015:web:9c70cb0875799e2ca53fd2"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const reviewsContainer = document.getElementById("reviews");
+        const form = document.getElementById("commentForm");
+
+        // Load reviews from Firestore (append to static ones)
+        async function loadReviews() {
+            reviewsContainer.innerHTML = "<p>Loading reviews...</p>";
+            try {
+                const q = query(collection(db, "reviews"), orderBy("timestamp", "desc"));
+                const querySnapshot = await getDocs(q);
+
+                reviewsContainer.innerHTML = ""; // Clear loading message
+
+                if (querySnapshot.empty) {
+                    reviewsContainer.innerHTML = "<p>No comments yet. Be the first!</p>";
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const stars = "★".repeat(data.rating) + "☆".repeat(5 - data.rating);
+
+                    const review = document.createElement("div");
+                    review.classList.add("review-card");
+                    review.innerHTML = `
+        <div class="stars">${stars}</div>
+        <p>"${data.comment}"</p>
+        <span>- ${data.name}</span>
+      `;
+                    reviewsContainer.appendChild(review);
+                });
+            } catch (error) {
+                console.error("Error loading reviews:", error);
+                reviewsContainer.innerHTML = "<p>Error loading reviews.</p>";
+            }
+        }
+        // Add new review
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById("commentName").value.trim();
+            const comment = document.getElementById("commentText").value.trim();
+            const rating = parseInt(document.querySelector('input[name="rating"]:checked')?.value || 0);
+
+            if (!name || !comment || rating === 0) {
+                alert("Please fill in all fields and select a rating.");
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, "reviews"), {
+                    name,
+                    comment,
+                    rating,
+                    timestamp: serverTimestamp()
+                });
+
+                // Show the new review immediately without reload
+                const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
+                const newReview = document.createElement("div");
+                newReview.classList.add("review-card");
+                newReview.innerHTML = `
+        <div class="stars">${stars}</div>
+        <p>"${comment}"</p>
+        <span>- ${name}</span>
+      `;
+                reviewsContainer.appendChild(newReview);
+
+                form.reset();
+            } catch (error) {
+                console.error("Error saving review:", error);
+                alert("There was an error submitting your review. Please try again.");
+            }
+        });
+
+        // Initial load (keeps static ones)
+        loadReviews();
+    </script>
+
     <script>
         import { Analytics } from "@vercel/analytics/react";
 

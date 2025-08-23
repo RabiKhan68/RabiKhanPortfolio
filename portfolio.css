@@ -656,12 +656,13 @@ hr {
 /* --- Textarea & Input only inside Testimonials --- */
 .add-comment textarea,
 .add-comment input[type="text"] {
+    display: block;
     width: 100%;
+    max-width: 100%;
     min-height: 80px;
     resize: vertical;
     padding: 12px 15px;
     margin-top: 10px;
-    margin-right: -30px;
     border: 1px solid #ddd;
     border-radius: 10px;
     font-size: 1rem;

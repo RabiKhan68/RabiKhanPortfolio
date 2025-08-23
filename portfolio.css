@@ -444,6 +444,8 @@ main hr {
     width: 100%;
     height: auto;
     border-radius: 10px;
+    max-height: 250px;
+    object-fit: cover;
 }
 
 #fifthsection a {

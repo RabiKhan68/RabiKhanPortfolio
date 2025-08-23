@@ -624,6 +624,7 @@ hr {
     margin-bottom: 10px;
 }
 
+/* --- Add Comment Section --- */
 .add-comment {
     margin-top: 40px;
     padding: 20px;
@@ -646,15 +647,16 @@ hr {
     cursor: pointer;
 }
 
-.star-rating input:checked~label,
+.star-rating input:checked ~ label,
 .star-rating label:hover,
-.star-rating label:hover~label {
+.star-rating label:hover ~ label {
     color: #FFD700;
 }
 
-textarea,
-input[type="text"] {
-    width: 90%;
+/* --- Textarea & Input only inside Testimonials --- */
+.add-comment textarea,
+.add-comment input[type="text"] {
+    width: 100%;
     min-height: 120px;
     resize: vertical;
     padding: 12px 15px;
@@ -663,25 +665,31 @@ input[type="text"] {
     border-radius: 10px;
     font-size: 1rem;
     line-height: 1.5;
+    background: #fff;
     transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
-.add-comment textarea:focus {
+.add-comment textarea:focus,
+.add-comment input[type="text"]:focus {
     border: 1px solid #0843B5;
     box-shadow: 0 0 6px rgba(8, 67, 181, 0.4);
     outline: none;
 }
 
-button {
+/* --- Button --- */
+.add-comment button {
     margin-top: 12px;
-    padding: 12px;
+    padding: 12px 20px;
     background: #2C3E50;
     color: white;
+    font-size: 1rem;
+    font-weight: 500;
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-button:hover {
+.add-comment button:hover {
     background: #0843B5;
 }

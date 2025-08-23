@@ -655,9 +655,9 @@ hr {
     cursor: pointer;
 }
 
-.star-rating input:checked ~ label,
+.star-rating input:checked~label,
 .star-rating label:hover,
-.star-rating label:hover ~ label {
+.star-rating label:hover~label {
     color: #FFD700;
 }
 
@@ -677,6 +677,28 @@ hr {
     line-height: 1.5;
     background: #fff;
     transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (max-width: 767px) {
+
+    /* --- Textarea & Input only inside Testimonials --- */
+    .add-comment textarea,
+    .add-comment input[type="text"] {
+        display: block;
+        width: 95%;
+        max-width: 95%;
+        min-height: 80px;
+        resize: vertical;
+        padding: 12px 15px;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        font-size: 1rem;
+        line-height: 1.5;
+        background: #fff;
+        transition: border 0.3s ease, box-shadow 0.3s ease;
+    }
+
 }
 
 .add-comment textarea:focus,

@@ -448,6 +448,14 @@ main hr {
     object-fit: cover;
 }
 
+@media (max-width: 767px) {
+    .project-img {
+        width: 100%;
+        height: auto;
+        max-height: 250px;
+    }
+}
+
 #fifthsection a {
     text-decoration: none;
     color: gold;
@@ -657,8 +665,8 @@ hr {
 .add-comment textarea,
 .add-comment input[type="text"] {
     display: block;
-    width: 100%;
-    max-width: 100%;
+    width: 95%;
+    max-width: 95%;
     min-height: 80px;
     resize: vertical;
     padding: 12px 15px;

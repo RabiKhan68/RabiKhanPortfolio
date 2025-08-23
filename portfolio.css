@@ -654,12 +654,22 @@ hr {
 
 textarea,
 input[type="text"] {
-    width: 90%;
-    padding: 10px;
-    margin-top: 8px;
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+    padding: 12px 15px;
+    margin-top: 10px;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 1rem;
+    line-height: 1.5;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-comment textarea:focus {
+    border: 1px solid #0843B5;
+    box-shadow: 0 0 6px rgba(8, 67, 181, 0.4);
+    outline: none;
 }
 
 button {
